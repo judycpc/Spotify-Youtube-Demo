@@ -1,9 +1,11 @@
 from flask import Flask, request, json, jsonify
 import random
+from flask_cors import CORS
 
 from db import get_works
 
 app = Flask(__name__)
+CORS(app, supports_credentials=True)
 
 @app.route('/')
 def index():

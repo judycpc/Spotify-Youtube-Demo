@@ -4,6 +4,8 @@ import { Card, Button, ConfigProvider, Typography } from 'antd';
 
 import Attr from '../components/Attr';
 
+import { predict } from '../api';
+
 const { Title } = Typography;
 
 const FormContainer = styled.div`
@@ -19,7 +21,7 @@ const ButtonContainer = styled.div`
   padding: 24px;
 `;
 
-function Form({ predicted, setPredicted }) {
+function Form({ predicted, setPredicted, setPrediction, setSimilarWork }) {
   const [danceability, setDanceability] = useState(50);
   const [energy, setEnergy] = useState(50);
   const [valence, setValence] = useState(50);
@@ -29,8 +31,8 @@ function Form({ predicted, setPredicted }) {
   const [liveness, setLiveness] = useState(50);
   const [tempo, setTempo] = useState(155);
 
-  const onClick = () => {
-    console.log({
+  const onClick = async () => {
+    const data = {
       danceability: danceability / 100,
       energy: energy / 100,
       valence: valence / 100,
@@ -39,7 +41,12 @@ function Form({ predicted, setPredicted }) {
       instrumentalness: instrumentalness / 100,
       liveness: liveness / 100,
       tempo
-    });
+    }
+
+    const { prediction, similar_work } = await predict(data);
+
+    setPrediction(prediction);
+    setSimilarWork(similar_work);
     setPredicted(!predicted);
   };
 
@@ -141,7 +148,7 @@ function Form({ predicted, setPredicted }) {
           style={{ alignSelf: 'center' }}
         >
           <Button type={predicted ? 'default' : 'primary'} size='large' onClick={onClick}>
-            {predicted ? '重新開始' : '開始預測'}
+            {predicted ? '重新調整屬性' : '開始預測'}
           </Button>
         </ConfigProvider>
       </ButtonContainer>

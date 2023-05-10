@@ -11,28 +11,7 @@ const WorkContainer = styled.div`
   height: 100%;
 `;
 
-function SimilarWork({ predicted }) {
-  const dataSource = [
-    {
-      key: '1',
-      artist: 'Artist 1',
-      track: 'Track 1',
-      link: 'spotify:track:0d28khcov6AiegSCpG5TuT'
-    },
-    {
-      key: '2',
-      artist: 'Artist 2',
-      track: 'Track 2',
-      link: 'link2'
-    },
-    {
-      key: '3',
-      artist: 'Artist 3',
-      track: 'Track 3',
-      link: 'link3'
-    },
-  ];
-
+function SimilarWork({ predicted, similarWork }) {
   const columns = [
     {
       title: '歌手',
@@ -64,7 +43,7 @@ function SimilarWork({ predicted }) {
       >
         {
           predicted ?
-            <Table dataSource={dataSource} columns={columns} pagination={false} size='small' />
+            <Table dataSource={similarWork} columns={columns} pagination={false} size='small' />
             : <Empty />
         }
       </Card>

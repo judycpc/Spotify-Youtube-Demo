@@ -11,7 +11,8 @@ const PredictionContainer = styled.div`
   height: 100%;
 `;
 
-function Prediction({ predicted }) {
+function Prediction({ predicted, prediction }) {
+
   return (
     <PredictionContainer>
       <Title level={3} style={{ color: '#fff', fontWeight: 400 }}>
@@ -28,24 +29,24 @@ function Prediction({ predicted }) {
               <Row gutter={16}>
                 <Col span={12}>
                   <Card bordered={false} size='small' hoverable style={{ background: '#f5f5f5' }}>
-                    <Statistic title="Spotify" value={112893} prefix={<CustomerServiceOutlined />} />
+                    <Statistic title="Spotify" value={prediction.stream} prefix={<CustomerServiceOutlined />} />
                   </Card>
                 </Col>
                 <Col span={12}>
                   <Card bordered={false} size='small' hoverable style={{ background: '#f5f5f5' }}>
-                    <Statistic title="YouTube" value={112893} prefix={<EyeOutlined />} />
+                    <Statistic title="YouTube" value={prediction.views} prefix={<EyeOutlined />} />
                   </Card>
                 </Col>
               </Row>
               <Row gutter={16} style={{ marginTop: 16 }}>
                 <Col span={12}>
                   <Card bordered={false} size='small' hoverable style={{ background: '#f5f5f5' }}>
-                    <Statistic title="YouTube" value={112893} prefix={<LikeOutlined />} />
+                    <Statistic title="YouTube" value={prediction.likes} prefix={<LikeOutlined />} />
                   </Card>
                 </Col>
                 <Col span={12}>
                   <Card bordered={false} size='small' hoverable style={{ background: '#f5f5f5' }}>
-                    <Statistic title="YouTube" value={112893} prefix={<CommentOutlined />} />
+                    <Statistic title="YouTube" value={prediction.comments} prefix={<CommentOutlined />} />
                   </Card>
                 </Col>
               </Row>
