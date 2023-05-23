@@ -35,16 +35,16 @@ function Form({ predicted, setPredicted, setPrediction, setSimilarWork }) {
 
   const onClick = async () => {
     const data = {
-      danceability: danceability / 100,
-      energy: energy / 100,
-      loudness,
-      valence: valence / 100,
-      speechiness: speechiness / 100,
-      acousticness: acousticness / 100,
+      Danceability: danceability / 100,
+      Energy: energy / 100,
+      Loudness: loudness,
+      Valence: valence / 100,
+      Speechiness: speechiness / 100,
+      Acousticness: acousticness / 100,
       // instrumentalness: instrumentalness / 100,
-      liveness: liveness / 100,
-      tempo,
-      duration_ms: duration_ms * 1000
+      Liveness: liveness / 100,
+      Tempo: tempo,
+      Duration_ms: duration_ms * 1000
     }
 
     const { prediction, similar_work } = await predict(data);

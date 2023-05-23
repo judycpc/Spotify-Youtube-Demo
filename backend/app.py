@@ -3,13 +3,14 @@ import random
 from flask_cors import CORS
 
 from db import get_works
+from model import predict_views
 
 app = Flask(__name__)
 CORS(app, supports_credentials=True)
 
 @app.route('/')
 def index():
-    return app.send_static_file('index.html')
+    return "Server running..."
 
 @app.route('/predict', methods=['POST'])
 def predict():
@@ -17,7 +18,7 @@ def predict():
 
     prediction = dict()
     prediction['stream'] = random.randint(500, 5000)
-    prediction['views'] = random.randint(500, 5000)
+    prediction['views'] = predict_views(data)
     prediction['likes'] = random.randint(100, 3000)
     prediction['comments'] = random.randint(0, 500)
 

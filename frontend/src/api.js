@@ -5,8 +5,8 @@ const instance = axios.create({
   headers: { 'Content-Type': 'application/json' }
 });
 
-const predict = async ({ danceability, energy, valence, speechiness, acousticness, instrumentalness, liveness, tempo }) => {
-  const data = await instance.post('/predict', { danceability, energy, valence, speechiness, acousticness, instrumentalness, liveness, tempo })
+const predict = async ({ Danceability, Energy, Loudness, Speechiness, Acousticness, Liveness, Valence, Tempo, Duration_ms }) => {
+  const data = await instance.post('/predict', { Danceability, Energy, Loudness, Speechiness, Acousticness, Liveness, Valence, Tempo, Duration_ms })
     .then(res => res.data)
     .catch(e => console.error('predict failed', e));
 
