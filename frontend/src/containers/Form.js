@@ -24,23 +24,27 @@ const ButtonContainer = styled.div`
 function Form({ predicted, setPredicted, setPrediction, setSimilarWork }) {
   const [danceability, setDanceability] = useState(50);
   const [energy, setEnergy] = useState(50);
+  const [loudness, setLoudness] = useState(-30);
   const [valence, setValence] = useState(50);
   const [speechiness, setSpeechiness] = useState(50);
   const [acousticness, setAcousticness] = useState(50);
-  const [instrumentalness, setInstrumentalness] = useState(50);
+  // const [instrumentalness, setInstrumentalness] = useState(50);
   const [liveness, setLiveness] = useState(50);
   const [tempo, setTempo] = useState(155);
+  const [duration_ms, setDuration_ms] = useState(195);
 
   const onClick = async () => {
     const data = {
       danceability: danceability / 100,
       energy: energy / 100,
+      loudness,
       valence: valence / 100,
       speechiness: speechiness / 100,
       acousticness: acousticness / 100,
-      instrumentalness: instrumentalness / 100,
+      // instrumentalness: instrumentalness / 100,
       liveness: liveness / 100,
-      tempo
+      tempo,
+      duration_ms: duration_ms * 1000
     }
 
     const { prediction, similar_work } = await predict(data);
@@ -84,12 +88,12 @@ function Form({ predicted, setPredicted, setPrediction, setSimilarWork }) {
           disabled={predicted}
         />
         <Attr
-          name="情緒積極度"
-          range={[0, 100]}
-          unit="%"
-          labels={['負面', '正向']}
-          value={valence}
-          setValue={setValence}
+          name="音量"
+          range={[-60, 0]}
+          unit="dB"
+          labels={['小聲', '大聲']}
+          value={loudness}
+          setValue={setLoudness}
           disabled={predicted}
         />
         <Attr
@@ -110,7 +114,7 @@ function Form({ predicted, setPredicted, setPrediction, setSimilarWork }) {
           setValue={setAcousticness}
           disabled={predicted}
         />
-        <Attr
+        {/* <Attr
           name="樂器聲程度"
           range={[0, 100]}
           unit="%"
@@ -118,7 +122,7 @@ function Form({ predicted, setPredicted, setPrediction, setSimilarWork }) {
           value={instrumentalness}
           setValue={setInstrumentalness}
           disabled={predicted}
-        />
+        /> */}
         <Attr
           name="觀眾活躍度"
           range={[0, 100]}
@@ -129,12 +133,30 @@ function Form({ predicted, setPredicted, setPrediction, setSimilarWork }) {
           disabled={predicted}
         />
         <Attr
+          name="情緒積極度"
+          range={[0, 100]}
+          unit="%"
+          labels={['負面', '正向']}
+          value={valence}
+          setValue={setValence}
+          disabled={predicted}
+        />
+        <Attr
           name="節奏"
           range={[60, 250]}
           unit="bpm"
           labels={['慢', '快']}
           value={tempo}
           setValue={setTempo}
+          disabled={predicted}
+        />
+        <Attr
+          name="長度"
+          range={[30, 360]}
+          unit="秒"
+          labels={['短', '長']}
+          value={duration_ms}
+          setValue={setDuration_ms}
           disabled={predicted}
         />
       </Card>
