@@ -12,7 +12,7 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-#### Run Server
+#### Run Server (http://127.0.0.1:5000)
 ```
 cd backend
 source venv/bin/activate
@@ -27,7 +27,7 @@ cd frontend
 yarn
 ```
 
-#### Run Frontend
+#### Run Frontend (http://127.0.0.1:3000)
 ```
 cd frontend
 yarn start
