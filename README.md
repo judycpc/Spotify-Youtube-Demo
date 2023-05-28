@@ -1,5 +1,9 @@
 # Spotify-Youtube-Demo
 
+## Cloning this Repository
+1. Install Git LFS (The installation method varies depending on the operating system.)
+2. Run `git lfs clone https://github.com/judycpc/Spotify-Youtube-Demo.git`
+
 ## Environment Setup
 
 ### Backend
