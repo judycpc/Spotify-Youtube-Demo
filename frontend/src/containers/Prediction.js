@@ -1,5 +1,5 @@
 import React from 'react';
-import { Typography, Card, Col, Row, Statistic, Empty } from 'antd';
+import { Typography, Card, Col, Row, Statistic, Empty, Spin } from 'antd';
 import { CustomerServiceOutlined, EyeOutlined, LikeOutlined, CommentOutlined } from '@ant-design/icons';
 import styled from 'styled-components';
 
@@ -11,7 +11,7 @@ const PredictionContainer = styled.div`
   height: 100%;
 `;
 
-function Prediction({ predicted, prediction }) {
+function Prediction({ predicted, loading, prediction }) {
 
   return (
     <PredictionContainer>
@@ -51,7 +51,7 @@ function Prediction({ predicted, prediction }) {
                 </Col>
               </Row>
             </>
-          ) : <Empty />
+          ) : (loading ? <Spin /> : <Empty />)
         }
       </Card>
     </PredictionContainer>

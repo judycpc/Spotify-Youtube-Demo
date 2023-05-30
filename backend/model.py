@@ -6,34 +6,71 @@ import random
 
 warnings.filterwarnings("ignore")
 
-views_model = joblib.load('./models/Viewsmodel.joblib')
-comments_model = joblib.load('./models/Commentsmodel.joblib')
-cluster_model = joblib.load('./models/Clustering.joblib')
+stream_model = None
+views_model = None
+likes_model = None
+comments_model = None
+cluster_model = None
 
-df = pd.read_csv('./Spotify_Youtube.csv')
-df.dropna(inplace=True)
-df = df[['Danceability', 'Energy', 'Acousticness', 'Valence', 'Tempo', 'Artist', 'Track', 'Uri']]
-df = df.rename(columns={'Artist': 'artist', 'Track': 'track', 'Uri': 'link'})
+df = None
 
-def predict_views(data):
-    X = pd.DataFrame(data, index=[0])
-    y = views_model.predict(X)[0]
+def load_models():
+    global stream_model, views_model, likes_model, comments_model, cluster_model
+
+    print('Models loading...')
+
+    stream_model = joblib.load('./models/Streammodel.joblib')
+    views_model = joblib.load('./models/Viewsmodel.joblib')
+    likes_model = joblib.load('./models/Likesmodel.joblib')
+    comments_model = joblib.load('./models/Commentsmodel.joblib')
+    cluster_model = joblib.load('./models/Clustering.joblib')
+
+    print('Models loaded.')
+
+def load_database():
+    global df
+
+    print('Database loading...')
+
+    df = pd.read_csv('./Spotify_Youtube.csv')
+    df.dropna(inplace=True)
+    df = df[['Danceability', 'Energy', 'Acousticness', 'Valence', 'Tempo', 'Artist', 'Track', 'Uri']]
+    df = df.rename(columns={'Artist': 'artist', 'Track': 'track', 'Uri': 'link'})
+
+    print('Database loaded.')
+
+
+def classification(data):
+    print('Classification start...')
     
-    if y == 0: return "0~100K"
-    elif y == 1: return "100K~5M"
-    elif y == 2: return "5M~16.25M"
-    else: return "Above 16.25M"
-
-def predict_comments(data):
     X = pd.DataFrame(data, index=[0])
-    y = comments_model.predict(X)[0]
 
-    if y == 0: return "0~50"
-    elif y == 1: return "50~900"
-    elif y == 2: return "900~2K"
-    else: return "Above 2K"
+    prediction = dict()
+
+    y_stream = stream_model.predict(X)[0]
+    stream_labels = ["0~1M", "1M~20M", "20M~90M", "Above 90M"]
+    prediction['stream'] = stream_labels[y_stream]
+
+    y_views = views_model.predict(X)[0]
+    views_labels = ["0~100K", "100K~5M", "5M~16.25M", "Above 16.25M"]
+    prediction['views'] = views_labels[y_views]
+
+    y_likes = likes_model.predict(X)[0]
+    likes_labels = ["0~1K", "1K~50K", "5K~180K", "Above 180K"]
+    prediction['likes'] = likes_labels[y_likes]
+
+    y_comments = comments_model.predict(X)[0]
+    comments_labels = ["0~50", "50~900", "900~2K", "Above 2K"]
+    prediction['comments'] = comments_labels[y_comments]
+
+    print('Classification done.')
+
+    return prediction
+
 
 def clustering(data):
+    print('Clustering start...')
+
     features = ['Danceability', 'Energy', 'Acousticness', 'Valence', 'Tempo']
     X = df[features]    # dataset
     x = pd.DataFrame(data, index=[0], columns=features)    # input
@@ -53,5 +90,7 @@ def clustering(data):
 
     for i, d in enumerate(result):
         d.update({'key': i+1})
+    
+    print('Clustering done.')
     
     return result

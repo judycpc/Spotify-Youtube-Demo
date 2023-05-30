@@ -1,11 +1,15 @@
 from flask import Flask, request, json, jsonify
-import random
 from flask_cors import CORS
 
-from model import predict_views, predict_comments, clustering
+from model import load_models, load_database, classification, clustering
 
 app = Flask(__name__)
 CORS(app, supports_credentials=True)
+
+@app.before_first_request
+def initialize():
+    load_models()
+    load_database()
 
 @app.route('/')
 def index():
@@ -15,12 +19,7 @@ def index():
 def predict():
     data = json.loads(request.data)
 
-    prediction = dict()
-    prediction['stream'] = random.randint(500, 5000)
-    prediction['views'] = predict_views(data)
-    prediction['likes'] = random.randint(100, 3000)
-    prediction['comments'] = predict_comments(data)
-
+    prediction = classification(data)
     similar_work = clustering(data)
 
     return jsonify({'prediction': prediction, 'similar_work': similar_work})

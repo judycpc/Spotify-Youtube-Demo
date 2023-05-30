@@ -42,6 +42,7 @@ const footerStyle = {
 
 const Root = () => {
   const [predicted, setPredicted] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [prediction, setPrediction] = useState({});
   const [similarWork, setSimilarWork] = useState([]);
 
@@ -54,14 +55,14 @@ const Root = () => {
       </Header>
       <Layout>
         <Sider style={siderStyle} width={'60vw'}>
-          <Form predicted={predicted} setPredicted={setPredicted} setPrediction={setPrediction} setSimilarWork={setSimilarWork} />
+          <Form predicted={predicted} setPredicted={setPredicted} loading={loading} setLoading={setLoading} setPrediction={setPrediction} setSimilarWork={setSimilarWork} />
         </Sider>
         <Layout>
           <Content style={contentStyle}>
-            <Prediction predicted={predicted} prediction={prediction} />
+            <Prediction predicted={predicted} loading={loading} prediction={prediction} />
           </Content>
           <Content style={contentStyle}>
-            <SimilarWork predicted={predicted} similarWork={similarWork} />
+            <SimilarWork predicted={predicted} loading={loading} similarWork={similarWork} />
           </Content>
         </Layout>
       </Layout>

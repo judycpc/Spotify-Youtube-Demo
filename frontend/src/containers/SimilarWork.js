@@ -1,5 +1,5 @@
 import React from 'react';
-import { Typography, Card, Table, Button, Empty } from 'antd';
+import { Typography, Card, Table, Button, Empty, Spin } from 'antd';
 import { LinkOutlined } from '@ant-design/icons';
 import styled from 'styled-components';
 
@@ -11,7 +11,7 @@ const WorkContainer = styled.div`
   height: 100%;
 `;
 
-function SimilarWork({ predicted, similarWork }) {
+function SimilarWork({ predicted, loading, similarWork }) {
   const columns = [
     {
       title: '歌手',
@@ -44,7 +44,7 @@ function SimilarWork({ predicted, similarWork }) {
         {
           predicted ?
             <Table dataSource={similarWork} columns={columns} pagination={false} size='small' />
-            : <Empty />
+            : (loading ? <Spin /> : <Empty />)
         }
       </Card>
     </WorkContainer>

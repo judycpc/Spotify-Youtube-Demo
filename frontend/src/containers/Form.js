@@ -21,7 +21,7 @@ const ButtonContainer = styled.div`
   padding: 24px;
 `;
 
-function Form({ predicted, setPredicted, setPrediction, setSimilarWork }) {
+function Form({ predicted, setPredicted, loading, setLoading, setPrediction, setSimilarWork }) {
   const [danceability, setDanceability] = useState(50);
   const [energy, setEnergy] = useState(50);
   const [loudness, setLoudness] = useState(-30);
@@ -34,23 +34,28 @@ function Form({ predicted, setPredicted, setPrediction, setSimilarWork }) {
   const [duration_ms, setDuration_ms] = useState(195);
 
   const onClick = async () => {
-    const data = {
-      Danceability: danceability / 100,
-      Energy: energy / 100,
-      Loudness: loudness,
-      Valence: valence / 100,
-      Speechiness: speechiness / 100,
-      Acousticness: acousticness / 100,
-      // instrumentalness: instrumentalness / 100,
-      Liveness: liveness / 100,
-      Tempo: tempo,
-      Duration_ms: duration_ms * 1000
+    if (!predicted) {
+      const data = {
+        Danceability: danceability / 100,
+        Energy: energy / 100,
+        Loudness: loudness,
+        Valence: valence / 100,
+        Speechiness: speechiness / 100,
+        Acousticness: acousticness / 100,
+        // instrumentalness: instrumentalness / 100,
+        Liveness: liveness / 100,
+        Tempo: tempo,
+        Duration_ms: duration_ms * 1000
+      }
+
+      setLoading(true);
+      const { prediction, similar_work } = await predict(data);
+      setLoading(false);
+
+      setPrediction(prediction);
+      setSimilarWork(similar_work);
     }
 
-    const { prediction, similar_work } = await predict(data);
-
-    setPrediction(prediction);
-    setSimilarWork(similar_work);
     setPredicted(!predicted);
   };
 
