@@ -1,5 +1,5 @@
 import React from 'react';
-import { Typography, Card, Col, Row, Statistic, Empty, Spin } from 'antd';
+import { Typography, Card, Col, Row, Statistic, Empty, Spin, ConfigProvider } from 'antd';
 import { CustomerServiceOutlined, EyeOutlined, LikeOutlined, CommentOutlined } from '@ant-design/icons';
 import styled from 'styled-components';
 
@@ -51,7 +51,17 @@ function Prediction({ predicted, loading, prediction }) {
                 </Col>
               </Row>
             </>
-          ) : (loading ? <Spin /> : <Empty />)
+          ) : (
+            <ConfigProvider
+              theme={{
+                token: {
+                  colorPrimary: '#1DB954',
+                },
+              }}
+            >
+              {loading ? <Spin /> : <Empty />}
+            </ConfigProvider>
+          )
         }
       </Card>
     </PredictionContainer>

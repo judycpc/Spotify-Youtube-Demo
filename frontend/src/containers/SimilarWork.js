@@ -1,5 +1,5 @@
 import React from 'react';
-import { Typography, Card, Table, Button, Empty, Spin } from 'antd';
+import { Typography, Card, Table, Button, Empty, Spin, ConfigProvider } from 'antd';
 import { LinkOutlined } from '@ant-design/icons';
 import styled from 'styled-components';
 
@@ -44,7 +44,17 @@ function SimilarWork({ predicted, loading, similarWork }) {
         {
           predicted ?
             <Table dataSource={similarWork} columns={columns} pagination={false} size='small' />
-            : (loading ? <Spin /> : <Empty />)
+            : (
+              <ConfigProvider
+                theme={{
+                  token: {
+                    colorPrimary: '#1DB954',
+                  },
+                }}
+              >
+                {loading ? <Spin /> : <Empty />}
+              </ConfigProvider>
+            )
         }
       </Card>
     </WorkContainer>
