@@ -33,11 +33,11 @@ const siderStyle = {
 const footerStyle = {
   textAlign: 'center',
   backgroundColor: '#1DB954',
-  height: '57px',
+  height: '70px',
   padding: 0,
   display: 'flex',
   flexDirection: 'column',
-  justifyContent: 'center'
+  justifyContent: 'center',
 };
 
 const Root = () => {

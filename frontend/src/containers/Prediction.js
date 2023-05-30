@@ -29,24 +29,24 @@ function Prediction({ predicted, prediction }) {
               <Row gutter={16}>
                 <Col span={12}>
                   <Card bordered={false} size='small' hoverable style={{ background: '#f5f5f5' }}>
-                    <Statistic title="Spotify" value={prediction.stream} prefix={<CustomerServiceOutlined />} />
+                    <Statistic title="Spotify Streams per Year" value={prediction.stream} prefix={<CustomerServiceOutlined />} />
                   </Card>
                 </Col>
                 <Col span={12}>
                   <Card bordered={false} size='small' hoverable style={{ background: '#f5f5f5' }}>
-                    <Statistic title="YouTube" value={prediction.views} prefix={<EyeOutlined />} />
+                    <Statistic title="YouTube Views per Year" value={prediction.views} prefix={<EyeOutlined />} />
                   </Card>
                 </Col>
               </Row>
               <Row gutter={16} style={{ marginTop: 16 }}>
                 <Col span={12}>
                   <Card bordered={false} size='small' hoverable style={{ background: '#f5f5f5' }}>
-                    <Statistic title="YouTube" value={prediction.likes} prefix={<LikeOutlined />} />
+                    <Statistic title="YouTube Likes per Year" value={prediction.likes} prefix={<LikeOutlined />} />
                   </Card>
                 </Col>
                 <Col span={12}>
                   <Card bordered={false} size='small' hoverable style={{ background: '#f5f5f5' }}>
-                    <Statistic title="YouTube" value={prediction.comments} prefix={<CommentOutlined />} />
+                    <Statistic title="YouTube Comments per Year" value={prediction.comments} prefix={<CommentOutlined />} />
                   </Card>
                 </Col>
               </Row>
